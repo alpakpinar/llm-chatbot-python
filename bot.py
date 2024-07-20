@@ -4,12 +4,12 @@ from agent import generate_response
 from utils import write_message
 
 # Page Config
-st.set_page_config("Ebert", page_icon=":movie_camera:")
+st.set_page_config("Movie Chatbot", page_icon=":movie_camera:")
 
 # Set up Session State
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "assistant", "content": "Hi, I'm the GraphAcademy Chatbot!  How can I help you?"},
+        {"role": "assistant", "content": "Hi, I'm a movie expert chatbot!  How can I help you?"},
     ]
 
 # Submit handler

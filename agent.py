@@ -1,7 +1,7 @@
 from llm import llm
 from graph import graph
 from utils import get_session_id
-from tools.vector import get_movie_plot
+from tools.vector import get_chunk_text
 from tools.cypher import cypher_qa
 
 from langchain import hub
@@ -16,29 +16,26 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 # Create a movie chat chain
 chat_prompt = ChatPromptTemplate.from_messages(
     [
-        ("system", "You are a movie expert providing information about movies."),
+        ("system", "You are a particle physics expert providing information about particle physics analyses."),
         ("human", "{input}"),
     ]
 )
 
-movie_chat = chat_prompt | llm | StrOutputParser()
+physics_chat = chat_prompt | llm | StrOutputParser()
 
 # Create a set of tools
 tools = [
     Tool.from_function(
-        name="General Chat",
-        description="For general movie chat not covered by other tools",
-        func=movie_chat.invoke,
+        name="General Physics Chat",
+        description="For generic particle physics chat not covered by other tools",
+        func=physics_chat.invoke,
     ),
     Tool.from_function(
-        name="Movie Plot Search",
-        description="For when you need to find information about movies based on a plot",
-        func=get_movie_plot,
-    ),
-    Tool.from_function(
-        name="Movie information",
-        description="Provide information about movies questions using Cypher",
-        func=cypher_qa,
+        name="Paper Text Search",
+        description="""For when you need to find information about vector boson fusion (VBF) analysis based on specific questions about the analysis.
+        This might include information like how events are selected in different analysis regions, what are the uncertainties being considered,
+        information about the particle detector being used, or information about triggers being used.""",
+        func=get_chunk_text,
     ),
 ]
 
@@ -50,9 +47,9 @@ def get_memory(session_id):
 # agent_prompt = hub.pull("hwchase17/react-chat")
 
 agent_prompt = PromptTemplate.from_template("""
-You are a movie expert providing information about movies.
+You are an expert providing information about particle physics.
 Be as helpful as possible and return as much information as possible.
-Do not answer any questions that do not relate to movies, actors or directors.
+Do not answer any questions that do not relate to particle physics.
 
 Do not answer any questions using your pre-trained knowledge, only use the information provided in the context.
 

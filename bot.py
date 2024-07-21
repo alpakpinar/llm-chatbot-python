@@ -4,21 +4,19 @@ from agent import generate_response
 from utils import write_message
 
 # Page Config
-st.set_page_config("Movie Chatbot", page_icon=":movie_camera:")
+st.set_page_config("Physics Chatbot", page_icon=":coffee:")
 
 # Set up Session State
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "assistant", "content": "Hi, I'm a movie expert chatbot!  How can I help you?"},
+        {"role": "assistant", "content": "Hi, I'm a particle physics expert chatbot, focusing on vector boson fusion (VBF). How can I help you?"},
     ]
 
 # Submit handler
 def handle_submit(message):
     """
-    Submit handler:
-
-    You will modify this method to talk with an LLM and provide
-    context using data from Neo4j.
+    Submit handler. Generates the response using the LangChain 
+    agent and writes back the message to the chat Session State.
     """
 
     # Handle the response

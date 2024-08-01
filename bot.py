@@ -4,12 +4,12 @@ from agent import generate_response
 from utils import write_message
 
 # Page Config
-st.set_page_config("Physics Chatbot", page_icon=":coffee:")
+st.set_page_config("Turkish Recipe Chatbot", page_icon=":shallow_pan_of_food:")
 
 # Set up Session State
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "assistant", "content": "Hi, I'm a particle physics expert chatbot, focusing on vector boson fusion (VBF). How can I help you?"},
+        {"role": "assistant", "content": "Hi, I'm a chatbot knowledgable about Turkish food recipes. How can I help you?"},
     ]
 
 # Submit handler
